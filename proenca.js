@@ -18,7 +18,7 @@ import {
 const firebaseConfig = {
     apiKey: "AIzaSyAEFPBH0CrqBJ42FdaK2EN-5_iUqyz3JVo",
     authDomain: "estoque-c27e1.firebaseapp.com",
-    databaseURL: "https://estoque-c27e1-default-rtdb.firebaseio.com", // Seu link do banco de dados
+    databaseURL: "https://estoque-c27e1-default-rtdb.firebaseio.com", 
     projectId: "estoque-c27e1",
     storageBucket: "estoque-c27e1.firebasestorage.app",
     messagingSenderId: "109591752115",
@@ -40,7 +40,7 @@ let historicoPaletes = [];
 // Elementos do HTML
 const formAlimento = document.getElementById("form-alimento");
 const formMovimentacao = document.getElementById("form-movimentacao");
-const formPaletes = document.getElementById("form-paletes");
+const formPaletes = document.getElementById("form-palete");
 
 const selectAlimento = document.getElementById("select-alimento");
 const tabelaEstoque = document.getElementById("tabela-estoque");
@@ -59,7 +59,6 @@ function formatarData(dataString) {
 // 3. SINCRONIZAÇÃO EM TEMPO REAL
 // ==========================================
 
-// Monitora a tabela de alimentos
 onValue(alimentosRef, (snapshot) => {
     estoqueAlimentos = [];
     const data = snapshot.val();
@@ -72,7 +71,6 @@ onValue(alimentosRef, (snapshot) => {
     atualizarSelectAlimentos();
 });
 
-// Monitora a tabela de paletes
 onValue(paletesRef, (snapshot) => {
     historicoPaletes = [];
     const data = snapshot.val();
@@ -92,50 +90,26 @@ function renderizarTabela() {
     tabelaEstoque.innerHTML = "";
 
     if (estoqueAlimentos.length === 0) {
-        tabelaEstoque.innerHTML = `
-            <tr>
-                <td colspan="7" style="text-align: center; color: var(--text-muted); padding: 20px;">
-                    Nenhum alimento cadastrado ainda no banco de dados.
-                </td>
-            </tr>
-        `;
+        tabelaEstoque.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 20px;">Nenhum alimento cadastrado.</td></tr>`;
         return;
     }
 
     estoqueAlimentos.forEach(item => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
-            <td><strong>${item.nome}</strong> <small style="color: var(--text-muted)">(${item.unidade})</small></td>
+            <td><strong>${item.nome}</strong> <small>(${item.unidade})</small></td>
             <td>${formatarData(item.validade)}</td>
-            <td style="color: var(--primary); font-weight: 600;">+${item.entradas}</td>
-            <td style="color: var(--text-muted); font-weight: 600;">-${item.saidas}</td>
-            <td style="color: #ef4444; font-weight: 600;">-${item.perdas}</td>
+            <td style="color: var(--primary)">+${item.entradas}</td>
+            <td style="color: var(--text-muted)">-${item.saidas}</td>
+            <td style="color: #ef4444">-${item.perdas}</td>
             <td style="font-weight: 700;">${item.saldo} ${item.unidade}</td>
-            <td>
-                <button class="btn-delete" data-id="${item.id}">Excluir</button>
-            </td>
+            <td><button class="btn-delete" data-id="${item.id}">Excluir</button></td>
         `;
         tabelaEstoque.appendChild(tr);
     });
 
-    // Evento de exclusão
     document.querySelectorAll(".btn-delete").forEach(btn => {
-        btn.addEventListener("click", () => {
-            const id = btn.getAttribute("data-id");
-            excluirAlimento(id);
-        });
-    });
-}
-
-function atualizarSelectAlimentos() {
-    if (!selectAlimento) return;
-    selectAlimento.innerHTML = '<option value="">-- Escolha um item --</option>';
-
-    estoqueAlimentos.forEach(item => {
-        const option = document.createElement("option");
-        option.value = item.id;
-        option.textContent = `${item.nome} (Saldo: ${item.saldo} ${item.unidade})`;
-        selectAlimento.appendChild(option);
+        btn.addEventListener("click", () => excluirAlimento(btn.getAttribute("data-id")));
     });
 }
 
@@ -160,117 +134,88 @@ function renderizarPaletes() {
         li.innerHTML = `
             <span><strong>Data:</strong> ${formatarData(registro.data)}</span>
             <span>Montados: <strong style="color: var(--primary)">+${registro.montados}</strong> | Saídas: <strong style="color: #ef4444">-${registro.saidas}</strong></span>
+            <button class="btn-delete-palete" data-id="${registro.id}" style="margin-left: 10px; cursor: pointer; color: red;">Excluir</button>
         `;
         listaPaletes.appendChild(li);
     });
 
     saldoPaletes.textContent = totalEstoque;
-}
 
-// ==========================================
-// 5. OPERAÇÕES DE ESCRITA (SALVAR NO BANCO)
-// ==========================================
-
-// Cadastrar Novo Alimento
-if (formAlimento) {
-    formAlimento.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const nome = document.getElementById("nome").value.trim();
-        const unidade = document.getElementById("unidade").value;
-        const validade = document.getElementById("validade").value;
-
-        const novoAlimentoRef = push(alimentosRef); // Gera um ID único no Realtime Database
-        
-        set(novoAlimentoRef, {
-            nome: nome,
-            unidade: unidade,
-            validade: validade,
-            entradas: 0,
-            saidas: 0,
-            perdas: 0,
-            saldo: 0
-        }).then(() => {
-            formAlimento.reset();
-        }).catch(err => console.error("Erro ao salvar:", err));
+    document.querySelectorAll(".btn-delete-palete").forEach(btn => {
+        btn.addEventListener("click", () => excluirPalete(btn.getAttribute("data-id")));
     });
 }
 
-// Movimentar Estoque
-if (formMovimentacao) {
-    formMovimentacao.addEventListener("submit", function (e) {
-        e.preventDefault();
+function atualizarSelectAlimentos() {
+    if (!selectAlimento) return;
+    selectAlimento.innerHTML = '<option value="">-- Escolha um item --</option>';
+    estoqueAlimentos.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = `${item.nome} (Saldo: ${item.saldo} ${item.unidade})`;
+        selectAlimento.appendChild(option);
+    });
+}
 
+// ==========================================
+// 5. OPERAÇÕES DE ESCRITA E EXCLUSÃO
+// ==========================================
+
+if (formAlimento) {
+    formAlimento.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const novoAlimentoRef = push(alimentosRef);
+        set(novoAlimentoRef, {
+            nome: document.getElementById("nome").value.trim(),
+            unidade: document.getElementById("unidade").value,
+            validade: document.getElementById("validade").value,
+            entradas: 0, saidas: 0, perdas: 0, saldo: 0
+        }).then(() => formAlimento.reset());
+    });
+}
+
+if (formMovimentacao) {
+    formMovimentacao.addEventListener("submit", (e) => {
+        e.preventDefault();
         const idAlimento = document.getElementById("select-alimento").value;
         const tipoMov = document.getElementById("tipo-mov").value;
         const qtd = parseFloat(document.getElementById("quantidade").value) || 0;
-        const novaValidade = document.getElementById("nova-validade").value;
-
         const alimento = estoqueAlimentos.find(a => a.id === idAlimento);
 
-        if (!alimento) {
-            alert("Selecione um alimento válido.");
-            return;
-        }
+        if (!alimento) return alert("Selecione um alimento!");
+        if ((tipoMov === "saida" || tipoMov === "perda") && alimento.saldo < qtd) return alert("Saldo insuficiente!");
 
-        if ((tipoMov === "saida" || tipoMov === "perda") && alimento.saldo < qtd) {
-            alert(`Saldo insuficiente! Você só tem ${alimento.saldo} ${alimento.unidade}.`);
-            return;
-        }
+        let n = { ...alimento };
+        if (tipoMov === "entrada") { n.entradas += qtd; n.saldo += qtd; }
+        else if (tipoMov === "saida") { n.saidas += qtd; n.saldo -= qtd; }
+        else { n.perdas += qtd; n.saldo -= qtd; }
 
-        let novosValores = { ...alimento };
-        if (tipoMov === "entrada") {
-            novosValores.entradas += qtd;
-            novosValores.saldo += qtd;
-        } else if (tipoMov === "saida") {
-            novosValores.saidas += qtd;
-            novosValores.saldo -= qtd;
-        } else if (tipoMov === "perda") {
-            novosValores.perdas += qtd;
-            novosValores.saldo -= qtd;
-        }
-
-        if (novaValidade) {
-            novosValores.validade = novaValidade;
-        }
-
-        const itemEspecificoRef = ref(db, `alimentos/${idAlimento}`);
-        update(itemEspecificoRef, {
-            entradas: novosValores.entradas,
-            saidas: novosValores.saidas,
-            perdas: novosValores.perdas,
-            saldo: novosValores.saldo,
-            validade: novosValores.validade
-        }).then(() => {
-            formMovimentacao.reset();
-        }).catch(err => console.error("Erro ao movimentar:", err));
+        update(ref(db, `alimentos/${idAlimento}`), { 
+            entradas: n.entradas, saidas: n.saidas, perdas: n.perdas, saldo: n.saldo 
+        }).then(() => formMovimentacao.reset());
     });
 }
 
-// Registrar Paletes
 if (formPaletes) {
-    formPaletes.addEventListener("submit", function (e) {
+    formPaletes.addEventListener("submit", (e) => {
         e.preventDefault();
-
-        const dataPalete = document.getElementById("data-palete").value;
-        const montados = parseInt(document.getElementById("qtd-montada").value) || 0;
-        const saidas = parseInt(document.getElementById("qtd-saida-palete").value) || 0;
-
         const novoPaleteRef = push(paletesRef);
         set(novoPaleteRef, {
-            data: dataPalete,
-            montados: montados,
-            saidas: saidas
-        }).then(() => {
-            formPaletes.reset();
-        }).catch(err => console.error("Erro ao salvar palete:", err));
+            data: document.getElementById("data-palete").value,
+            montados: parseInt(document.getElementById("qtd-montada").value) || 0,
+            saidas: parseInt(document.getElementById("qtd-saida-palete").value) || 0
+        }).then(() => formPaletes.reset());
     });
 }
 
-// Excluir Alimento
 function excluirAlimento(id) {
-    if (confirm("Deseja realmente remover este alimento do banco de dados?")) {
-        const itemEspecificoRef = ref(db, `alimentos/${id}`);
-        remove(itemEspecificoRef).catch(err => console.error("Erro ao excluir:", err));
+    if (confirm("Deseja realmente remover este alimento?")) {
+        remove(ref(db, `alimentos/${id}`));
+    }
+}
+
+function excluirPalete(id) {
+    if (confirm("Deseja realmente remover este registro de palete?")) {
+        remove(ref(db, `paletes/${id}`));
     }
 }
