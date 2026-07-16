@@ -3,27 +3,21 @@
    ========================================== */
 
 :root {
-    /* Paleta de Cinzas e Brancos (Monocromática e Moderna) */
-    --background: #f8fafc;       /* Branco gelo / Cinza bem claro para o fundo */
-    --card-bg: #ffffff;          /* Branco puro para os cards se destacarem */
-    --card-border: #e2e8f0;      /* Cinza claro para linhas e bordas finas */
-    --text-main: #0f172a;        /* Grafite escuro para leitura perfeita */
-    --text-muted: #64748b;       /* Cinza médio para textos secundários e labels */
-    
-    /* Cores dos Elementos de Ação (Tons de Cinza Profissional) */
-    --primary: #334155;          /* Grafite escuro para o botão principal */
-    --primary-hover: #1e293b;    /* Grafite ainda mais escuro no hover */
-    --secondary: #64748b;        /* Cinza médio para botões secundários */
+    --background: #f8fafc;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --primary: #334155;
+    --primary-hover: #1e293b;
+    --secondary: #64748b;
     --secondary-hover: #475569;
-    
-    /* Cores sutis de alerta (mantendo a sobriedade) */
-    --accent-red: #94a3b8;       /* Cinza aço para ações neutras/excluir */
-    --accent-red-hover: #ef4444; /* Vermelho só aparece no hover do botão excluir */
+    --accent-red: #94a3b8;
+    --accent-red-hover: #ef4444;
     --accent-amber: #475569;
-    
-    --input-bg: #ffffff;         /* Fundo branco para os campos de digitação */
-    --input-border: #cbd5e1;     /* Borda cinza para os inputs */
-    --radius: 8px;               /* Bordas levemente arredondadas e limpas */
+    --input-bg: #ffffff;
+    --input-border: #cbd5e1;
+    --radius: 8px;
 }
 
 * {
@@ -37,10 +31,9 @@ body {
     background-color: var(--background);
     color: var(--text-main);
     line-height: 1.5;
-    padding: 20px 12px; /* Reduzido o padding lateral para telas menores */
+    padding: 20px 12px;
 }
 
-/* Ajuste no body para telas maiores */
 @media (min-width: 768px) {
     body {
         padding: 40px 20px;
@@ -55,7 +48,7 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 24px; /* Menor em mobile */
+    margin-bottom: 24px;
 }
 
 @media (min-width: 768px) {
@@ -65,7 +58,7 @@ header {
 }
 
 header h1 {
-    font-size: 1.75rem; /* Ajuste mobile */
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--text-main);
     margin-bottom: 8px;
@@ -80,7 +73,7 @@ header h1 {
 
 header p {
     color: var(--text-muted);
-    font-size: 0.95rem; /* Ajuste mobile */
+    font-size: 0.95rem;
 }
 
 @media (min-width: 768px) {
@@ -89,11 +82,10 @@ header p {
     }
 }
 
-/* Grid Layout */
 .grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px; /* Menor em mobile */
+    gap: 20px;
     align-items: start;
 }
 
@@ -116,12 +108,11 @@ header p {
     }
 }
 
-/* Cards Clean */
 .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--radius);
-    padding: 16px; /* Padding interno menor em mobile para economizar espaço */
+    padding: 16px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.2s ease;
 }
@@ -152,7 +143,6 @@ header p {
     }
 }
 
-/* Formulários Clean */
 .form-group {
     margin-bottom: 16px;
 }
@@ -168,13 +158,13 @@ header p {
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 12px; /* Toque mais confortável no mobile */
+    padding: 12px;
     border: 1px solid var(--input-border);
     border-radius: 6px;
     background-color: var(--input-bg);
     color: var(--text-main);
     font-family: inherit;
-    font-size: 1rem; /* 16px evita zoom automático indesejado no iOS */
+    font-size: 1rem;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -182,11 +172,10 @@ header p {
     .form-group input,
     .form-group select {
         padding: 10px 12px;
-        font-size: 0.9rem; /* Mantém menor no computador */
+        font-size: 0.9rem;
     }
 }
 
-/* Foco elegante em cinza escuro nos inputs */
 .form-group input:focus,
 .form-group select:focus {
     outline: none;
@@ -200,10 +189,9 @@ header p {
     gap: 12px;
 }
 
-/* Botões Sóbrios */
 button {
     width: 100%;
-    padding: 14px; /* Aumentado para melhor usabilidade em touchscreens */
+    padding: 14px;
     border: none;
     border-radius: 6px;
     font-size: 0.95rem;
@@ -220,27 +208,17 @@ button {
     }
 }
 
-.btn-add { 
-    background-color: var(--primary); 
-}
-.btn-add:hover { 
-    background-color: var(--primary-hover);
-}
+.btn-add { background-color: var(--primary); }
+.btn-add:hover { background-color: var(--primary-hover); }
+.btn-mov { background-color: var(--secondary); }
+.btn-mov:hover { background-color: var(--secondary-hover); }
 
-.btn-mov { 
-    background-color: var(--secondary); 
-}
-.btn-mov:hover { 
-    background-color: var(--secondary-hover);
-}
-
-/* Tabela Limpa e Altamente Responsiva */
 .table-responsive {
-    overflow-x: auto; /* Adiciona barra de rolagem horizontal se a tabela passar da tela */
+    overflow-x: auto;
     width: 100%;
     border-radius: 6px;
     border: 1px solid var(--card-border);
-    -webkit-overflow-scrolling: touch; /* Suavidade na rolagem do celular */
+    -webkit-overflow-scrolling: touch;
     margin-bottom: 8px;
 }
 
@@ -248,64 +226,54 @@ table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-size: 0.85rem; /* Ajuste para caber mais dados no mobile */
+    font-size: 0.85rem;
 }
 
 @media (min-width: 768px) {
-    table {
-        font-size: 0.875rem;
-    }
+    table { font-size: 0.875rem; }
 }
 
 th {
-    background-color: #f1f5f9; /* Fundo cinza bem claro para o cabeçalho */
+    background-color: #f1f5f9;
     color: var(--text-muted);
     font-weight: 600;
-    padding: 10px 12px; /* Padding menor no mobile */
+    padding: 10px 12px;
     border-bottom: 1px solid var(--card-border);
     text-transform: uppercase;
     font-size: 0.7rem;
     letter-spacing: 0.05em;
-    white-space: nowrap; /* Evita que o título da coluna quebre linhas desnecessárias */
+    white-space: nowrap;
 }
 
 @media (min-width: 768px) {
-    th {
-        padding: 12px 16px;
-        font-size: 0.75rem;
-    }
+    th { padding: 12px 16px; font-size: 0.75rem; }
 }
 
+/* CORREÇÃO APLICADA ABAIXO */
 td {
-    padding: 10px 12px; /* Padding menor no mobile */
+    padding: 10px 12px;
     border-bottom: 1px solid var(--card-border);
     color: var(--text-main);
     background-color: var(--card-bg);
-    white-space: nowrap; /* Mantém as linhas alinhadas */
+    white-space: normal; /* Permite quebra de linha */
+    word-break: break-word; /* Garante que palavras longas quebrem */
 }
 
 @media (min-width: 768px) {
     td {
         padding: 12px 16px;
-        white-space: normal; /* No computador as palavras podem quebrar normalmente */
     }
 }
 
-tr:last-child td {
-    border-bottom: none;
-}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background-color: #f8fafc; }
 
-tr:hover td {
-    background-color: #f8fafc; /* Efeito de hover cinza sutil na linha */
-}
-
-/* Botão Excluir Discreto */
 .btn-delete {
     background: none;
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 8px 12px; /* Toque facilitado */
+    padding: 8px 12px;
     font-size: 0.85rem;
     font-weight: 500;
     border-radius: 4px;
@@ -313,17 +281,14 @@ tr:hover td {
 }
 
 @media (min-width: 768px) {
-    .btn-delete {
-        padding: 4px 8px;
-    }
+    .btn-delete { padding: 4px 8px; }
 }
 
 .btn-delete:hover {
     background-color: #fee2e2;
-    color: #ef4444; /* Só fica vermelho quando passa o mouse por cima */
+    color: #ef4444;
 }
 
-/* Painel de Paletes */
 .footer-paletes {
     margin-top: 20px;
     padding-top: 15px;
@@ -342,7 +307,7 @@ tr:hover td {
 #lista-paletes li {
     display: flex;
     justify-content: space-between;
-    padding: 10px 12px; /* Toque mais confortável */
+    padding: 10px 12px;
     background-color: #f8fafc;
     border: 1px solid var(--card-border);
     border-radius: 4px;
@@ -351,16 +316,13 @@ tr:hover td {
     color: var(--text-main);
 }
 
-/* Botão Voltar Clean */
 .container-voltar {
     margin-top: 30px;
     text-align: center;
 }
 
 @media (min-width: 768px) {
-    .container-voltar {
-        margin-top: 40px;
-    }
+    .container-voltar { margin-top: 40px; }
 }
 
 .btn-voltar {
@@ -369,9 +331,9 @@ tr:hover td {
     align-items: center;
     text-decoration: none;
     color: var(--text-muted);
-    padding: 12px 20px; /* Toque confortável */
-    width: 100%; /* Largura total no celular */
-    max-width: 200px; /* Mas sem passar de 200px */
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 200px;
     border-radius: 6px;
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -382,7 +344,7 @@ tr:hover td {
 
 @media (min-width: 768px) {
     .btn-voltar {
-        width: auto; /* No desktop volta ao tamanho padrão do conteúdo */
+        width: auto;
         padding: 10px 20px;
     }
 }
