@@ -168,20 +168,21 @@ header p {
 .form-group input,
 .form-group select {
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px; /* Toque mais confortável no mobile */
     border: 1px solid var(--input-border);
     border-radius: 6px;
     background-color: var(--input-bg);
     color: var(--text-main);
     font-family: inherit;
-    font-size: 0.95rem; /* Um pouco maior no mobile para o iOS não dar zoom automático */
+    font-size: 1rem; /* 16px evita zoom automático indesejado no iOS */
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 @media (min-width: 768px) {
     .form-group input,
     .form-group select {
-        font-size: 0.9rem;
+        padding: 10px 12px;
+        font-size: 0.9rem; /* Mantém menor no computador */
     }
 }
 
@@ -202,10 +203,10 @@ header p {
 /* Botões Sóbrios */
 button {
     width: 100%;
-    padding: 12px; /* Ligeiramente maior no mobile para toque facilitado */
+    padding: 14px; /* Aumentado para melhor usabilidade em touchscreens */
     border: none;
     border-radius: 6px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
     color: #ffffff;
@@ -215,6 +216,7 @@ button {
 @media (min-width: 768px) {
     button {
         padding: 11px;
+        font-size: 0.9rem;
     }
 }
 
@@ -239,6 +241,7 @@ button {
     border-radius: 6px;
     border: 1px solid var(--card-border);
     -webkit-overflow-scrolling: touch; /* Suavidade na rolagem do celular */
+    margin-bottom: 8px;
 }
 
 table {
@@ -302,7 +305,7 @@ tr:hover td {
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 6px 10px; /* Área de toque um pouco maior no mobile */
+    padding: 8px 12px; /* Toque facilitado */
     font-size: 0.85rem;
     font-weight: 500;
     border-radius: 4px;
@@ -339,7 +342,7 @@ tr:hover td {
 #lista-paletes li {
     display: flex;
     justify-content: space-between;
-    padding: 8px 12px;
+    padding: 10px 12px; /* Toque mais confortável */
     background-color: #f8fafc;
     border: 1px solid var(--card-border);
     border-radius: 4px;
@@ -363,9 +366,10 @@ tr:hover td {
 .btn-voltar {
     display: inline-flex;
     justify-content: center;
+    align-items: center;
     text-decoration: none;
     color: var(--text-muted);
-    padding: 10px 20px;
+    padding: 12px 20px; /* Toque confortável */
     width: 100%; /* Largura total no celular */
     max-width: 200px; /* Mas sem passar de 200px */
     border-radius: 6px;
@@ -379,6 +383,7 @@ tr:hover td {
 @media (min-width: 768px) {
     .btn-voltar {
         width: auto; /* No desktop volta ao tamanho padrão do conteúdo */
+        padding: 10px 20px;
     }
 }
 
