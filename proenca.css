@@ -31,7 +31,7 @@ body {
     background-color: var(--background);
     color: var(--text-main);
     line-height: 1.5;
-    padding: 20px 12px;
+    padding: 15px 10px;
 }
 
 @media (min-width: 768px) {
