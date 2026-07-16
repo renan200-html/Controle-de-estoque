@@ -1,0 +1,285 @@
+/* ==========================================
+   Controle de Estoque Proença - MINIMALIST LIGHT
+   ========================================== */
+
+:root {
+    /* Paleta de Cinzas e Brancos (Monocromática e Moderna) */
+    --background: #f8fafc;       /* Branco gelo / Cinza bem claro para o fundo */
+    --card-bg: #ffffff;          /* Branco puro para os cards se destacarem */
+    --card-border: #e2e8f0;      /* Cinza claro para linhas e bordas finas */
+    --text-main: #0f172a;        /* Grafite escuro para leitura perfeita */
+    --text-muted: #64748b;       /* Cinza médio para textos secundários e labels */
+    
+    /* Cores dos Elementos de Ação (Tons de Cinza Profissional) */
+    --primary: #334155;          /* Grafite escuro para o botão principal */
+    --primary-hover: #1e293b;    /* Grafite ainda mais escuro no hover */
+    --secondary: #64748b;        /* Cinza médio para botões secundários */
+    --secondary-hover: #475569;
+    
+    /* Cores sutis de alerta (mantendo a sobriedade) */
+    --accent-red: #94a3b8;       /* Cinza aço para ações neutras/excluir */
+    --accent-red-hover: #ef4444; /* Vermelho só aparece no hover do botão excluir */
+    --accent-amber: #475569;
+    
+    --input-bg: #ffffff;         /* Fundo branco para os campos de digitação */
+    --input-border: #cbd5e1;     /* Borda cinza para os inputs */
+    --radius: 8px;               /* Bordas levemente arredondadas e limpas */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    color: var(--text-main);
+    line-height: 1.5;
+    padding: 40px 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    letter-spacing: -0.025em;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+@media (min-width: 992px) {
+    .grid {
+        grid-template-columns: 400px 1fr;
+    }
+}
+
+.space-y {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Cards Clean */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--card-border);
+    padding-bottom: 10px;
+}
+
+/* Formulários Clean */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--input-border);
+    border-radius: 6px;
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Foco elegante em cinza escuro nos inputs */
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(51, 65, 85, 0.1);
+}
+
+.grid-inputs-metade {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Botões Sóbrios */
+button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #ffffff;
+    transition: background-color 0.15s ease;
+}
+
+.btn-add { 
+    background-color: var(--primary); 
+}
+.btn-add:hover { 
+    background-color: var(--primary-hover);
+}
+
+.btn-mov { 
+    background-color: var(--secondary); 
+}
+.btn-mov:hover { 
+    background-color: var(--secondary-hover);
+}
+
+/* Tabela Limpa */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 6px;
+    border: 1px solid var(--card-border);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+th {
+    background-color: #f1f5f9; /* Fundo cinza bem claro para o cabeçalho */
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--card-border);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--text-main);
+    background-color: var(--card-bg);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: #f8fafc; /* Efeito de hover cinza sutil na linha */
+}
+
+/* Botão Excluir Discreto */
+.btn-delete {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.btn-delete:hover {
+    background-color: #fee2e2;
+    color: #ef4444; /* Só fica vermelho quando passa o mouse por cima */
+}
+
+/* Painel de Paletes */
+.footer-paletes {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--card-border);
+}
+
+#saldo-paletes {
+    background-color: #e2e8f0;
+    color: var(--text-main);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+#lista-paletes li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: #f8fafc;
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--text-main);
+}
+
+/* Botão Voltar Clean */
+.container-voltar {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.btn-voltar {
+    display: inline-flex;
+    text-decoration: none;
+    color: var(--text-muted);
+    padding: 8px 20px;
+    border-radius: 6px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.btn-voltar:hover {
+    color: var(--text-main);
+    border-color: var(--text-muted);
+    background-color: #f1f5f9;
+}
