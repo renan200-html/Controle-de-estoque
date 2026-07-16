@@ -1,3 +1,4 @@
+
 /* ==========================================
    Controle de Estoque Proença - MINIMALIST LIGHT
    ========================================== */
@@ -31,13 +32,32 @@ body {
     background-color: var(--background);
     color: var(--text-main);
     line-height: 1.5;
-    padding: 10px 10px;
+    padding: 15px 10px;
 }
 
 @media (min-width: 768px) {
     body {
         padding: 40px 20px;
     }
+}
+
+/* Isso impede que qualquer elemento faça a página ficar mais larga que a tela do celular */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Garante que tudo o que for 'card' ou 'form' não passe da largura da tela */
+.card, form, .container {
+    max-width: 100%;
+    width: 100%;
+}
+
+/* Isso força inputs e selects a não estourarem o layout */
+input, select, button {
+    max-width: 100%;
 }
 
 .container {
