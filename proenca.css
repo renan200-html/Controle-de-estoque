@@ -37,50 +37,83 @@ body {
     background-color: var(--background);
     color: var(--text-main);
     line-height: 1.5;
-    padding: 40px 20px;
+    padding: 20px 12px; /* Reduzido o padding lateral para telas menores */
+}
+
+/* Ajuste no body para telas maiores */
+@media (min-width: 768px) {
+    body {
+        padding: 40px 20px;
+    }
 }
 
 .container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 24px; /* Menor em mobile */
+}
+
+@media (min-width: 768px) {
+    header {
+        margin-bottom: 40px;
+    }
 }
 
 header h1 {
-    font-size: 2.25rem;
+    font-size: 1.75rem; /* Ajuste mobile */
     font-weight: 700;
     color: var(--text-main);
     margin-bottom: 8px;
     letter-spacing: -0.025em;
 }
 
+@media (min-width: 768px) {
+    header h1 {
+        font-size: 2.25rem;
+    }
+}
+
 header p {
     color: var(--text-muted);
-    font-size: 1.1rem;
+    font-size: 0.95rem; /* Ajuste mobile */
+}
+
+@media (min-width: 768px) {
+    header p {
+        font-size: 1.1rem;
+    }
 }
 
 /* Grid Layout */
 .grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 20px; /* Menor em mobile */
     align-items: start;
 }
 
 @media (min-width: 992px) {
     .grid {
         grid-template-columns: 400px 1fr;
+        gap: 24px;
     }
 }
 
 .space-y {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .space-y {
+        gap: 24px;
+    }
 }
 
 /* Cards Clean */
@@ -88,9 +121,15 @@ header p {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--radius);
-    padding: 24px;
+    padding: 16px; /* Padding interno menor em mobile para economizar espaço */
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.2s ease;
+}
+
+@media (min-width: 768px) {
+    .card {
+        padding: 24px;
+    }
 }
 
 .card:hover {
@@ -98,12 +137,19 @@ header p {
 }
 
 .card h2 {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     color: var(--text-main);
     border-bottom: 1px solid var(--card-border);
     padding-bottom: 10px;
+}
+
+@media (min-width: 768px) {
+    .card h2 {
+        font-size: 1.15rem;
+        margin-bottom: 20px;
+    }
 }
 
 /* Formulários Clean */
@@ -128,8 +174,15 @@ header p {
     background-color: var(--input-bg);
     color: var(--text-main);
     font-family: inherit;
-    font-size: 0.9rem;
+    font-size: 0.95rem; /* Um pouco maior no mobile para o iOS não dar zoom automático */
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+@media (min-width: 768px) {
+    .form-group input,
+    .form-group select {
+        font-size: 0.9rem;
+    }
 }
 
 /* Foco elegante em cinza escuro nos inputs */
@@ -149,7 +202,7 @@ header p {
 /* Botões Sóbrios */
 button {
     width: 100%;
-    padding: 11px;
+    padding: 12px; /* Ligeiramente maior no mobile para toque facilitado */
     border: none;
     border-radius: 6px;
     font-size: 0.9rem;
@@ -157,6 +210,12 @@ button {
     cursor: pointer;
     color: #ffffff;
     transition: background-color 0.15s ease;
+}
+
+@media (min-width: 768px) {
+    button {
+        padding: 11px;
+    }
 }
 
 .btn-add { 
@@ -173,36 +232,60 @@ button {
     background-color: var(--secondary-hover);
 }
 
-/* Tabela Limpa */
+/* Tabela Limpa e Altamente Responsiva */
 .table-responsive {
-    overflow-x: auto;
+    overflow-x: auto; /* Adiciona barra de rolagem horizontal se a tabela passar da tela */
+    width: 100%;
     border-radius: 6px;
     border: 1px solid var(--card-border);
+    -webkit-overflow-scrolling: touch; /* Suavidade na rolagem do celular */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-size: 0.875rem;
+    font-size: 0.85rem; /* Ajuste para caber mais dados no mobile */
+}
+
+@media (min-width: 768px) {
+    table {
+        font-size: 0.875rem;
+    }
 }
 
 th {
     background-color: #f1f5f9; /* Fundo cinza bem claro para o cabeçalho */
     color: var(--text-muted);
     font-weight: 600;
-    padding: 12px 16px;
+    padding: 10px 12px; /* Padding menor no mobile */
     border-bottom: 1px solid var(--card-border);
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 0.05em;
+    white-space: nowrap; /* Evita que o título da coluna quebre linhas desnecessárias */
+}
+
+@media (min-width: 768px) {
+    th {
+        padding: 12px 16px;
+        font-size: 0.75rem;
+    }
 }
 
 td {
-    padding: 12px 16px;
+    padding: 10px 12px; /* Padding menor no mobile */
     border-bottom: 1px solid var(--card-border);
     color: var(--text-main);
     background-color: var(--card-bg);
+    white-space: nowrap; /* Mantém as linhas alinhadas */
+}
+
+@media (min-width: 768px) {
+    td {
+        padding: 12px 16px;
+        white-space: normal; /* No computador as palavras podem quebrar normalmente */
+    }
 }
 
 tr:last-child td {
@@ -219,11 +302,17 @@ tr:hover td {
     border: none;
     color: var(--text-muted);
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 6px 10px; /* Área de toque um pouco maior no mobile */
     font-size: 0.85rem;
     font-weight: 500;
     border-radius: 4px;
     transition: all 0.15s ease;
+}
+
+@media (min-width: 768px) {
+    .btn-delete {
+        padding: 4px 8px;
+    }
 }
 
 .btn-delete:hover {
@@ -261,21 +350,36 @@ tr:hover td {
 
 /* Botão Voltar Clean */
 .container-voltar {
-    margin-top: 40px;
+    margin-top: 30px;
     text-align: center;
+}
+
+@media (min-width: 768px) {
+    .container-voltar {
+        margin-top: 40px;
+    }
 }
 
 .btn-voltar {
     display: inline-flex;
+    justify-content: center;
     text-decoration: none;
     color: var(--text-muted);
-    padding: 8px 20px;
+    padding: 10px 20px;
+    width: 100%; /* Largura total no celular */
+    max-width: 200px; /* Mas sem passar de 200px */
     border-radius: 6px;
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
     font-size: 0.9rem;
     font-weight: 500;
     transition: all 0.15s ease;
+}
+
+@media (min-width: 768px) {
+    .btn-voltar {
+        width: auto; /* No desktop volta ao tamanho padrão do conteúdo */
+    }
 }
 
 .btn-voltar:hover {
