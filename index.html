@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque de Alimentos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="proenca.css">
+</head>
+
+<body>
+
+    <div id="area-sistema" style="display: none;">
+    </div>
+
+    <div class="container">
+
+        <header>
+            <h1>Controle de Estoque Alimentar</h1>
+            <p>Gerencie entradas, saídas e perdas</p>
+        </header>
+
+        <div class="grid">
+
+            <div class="space-y">
+
+                <!-- 1. Cadastrar Alimento -->
+                <div class="card card-cadastrar">
+                    <h2>1. Cadastrar Alimento</h2>
+
+                    <form id="form-alimento">
+                        <div class="form-group">
+                            <label for="nome">Nome do Alimento:</label>
+                            <input type="text" id="nome" placeholder="Ex: Arroz Tio João" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="unidade">Unidade de Medida:</label>
+                            <select id="unidade">
+                                <option value="Kg">Quilo (Kg)</option>
+                                <option value="Unid">Unidade (Unid)</option>
+                                <option value="Litro">Litro (L)</option>
+                                <option value="Pacote">Pacote</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="validade">Data de Validade:</label>
+                            <input type="date" id="validade">
+                        </div>
+
+                        <button type="submit" class="btn-add">Cadastrar</button>
+                    </form>
+                </div>
+
+                <!-- 2. Registrar Movimentação -->
+                <div class="card card-movimentar">
+                    <h2>2. Registrar Movimentação</h2>
+
+                    <form id="form-movimentacao">
+                        <div class="form-group">
+                            <label for="select-alimento">Selecionar Alimento:</label>
+                            <select id="select-alimento" required>
+                                <option value="">-- Escolha um item --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipo-mov">Tipo de Operação:</label>
+                            <select id="tipo-mov" required>
+                                <option value="entrada">Aumentou (+) [Entrada/Compra]</option>
+                                <option value="saida">Foi Usado (-) [Consumo/Venda]</option>
+                                <option value="perda">Perdido (-) [Estragou/Venceu]</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantidade">Quantidade:</label>
+                            <input type="number" id="quantidade" min="0.1" step="0.1" placeholder="0" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nova-validade">Atualizar Validade (Opcional):</label>
+                            <input type="date" id="nova-validade">
+                        </div>
+
+                        <button type="submit" class="btn-mov">Salvar Alteração</button>
+                    </form>
+                </div>
+
+                <!-- 3. Controle de Paletes (Cestas) -->
+                <div class="card card-paletes">
+                    <h2>3. Controle de Paletes (Cestas)</h2>
+
+                    <!-- ID Corrigido aqui de "form-paletes" para "form-palete" -->
+                    <form id="form-palete">
+                        <div class="form-group">
+                            <label for="data-palete">Data da Montagem:</label>
+                            <input type="date" id="data-palete" required>
+                        </div>
+
+                        <div class="grid-inputs-metade">
+                            <div class="form-group">
+                                <label for="qtd-montada">Montados (+):</label>
+                                <input type="number" id="qtd-montada" min="0" placeholder="0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="qtd-saida-palete">Saíram (-):</label>
+                                <input type="number" id="qtd-saida-palete" min="0" placeholder="0">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-add">Registrar Paletes</button>
+                    </form>
+
+                    <div class="footer-paletes">
+                        <p class="total-estoque-wrapper">
+                            <strong>Total em Estoque: <span id="saldo-paletes">0</span> Paletes</strong>
+                        </p>
+                        <ul id="lista-paletes">
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Tabela de Estoque -->
+            <div class="card card-tabela">
+                <h2>Estoque Atual de Itens</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Alimento</th>
+                                <th>Validade</th>
+                                <th>Entradas (+)</th>
+                                <th>Saídas (-)</th>
+                                <th>Perdas (-)</th>
+                                <th>Saldo Atual</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-estoque">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div> 
+        
+        <div class="container-voltar">
+            <a href="sexta.html" class="btn-voltar">
+                <span class="seta-voltar">←</span> Voltar para Sexta
+            </a>
+        </div>
+
+    </div> 
+    
+    <script type="module" src="proenca.js"></script>
+</body>
+</html>
